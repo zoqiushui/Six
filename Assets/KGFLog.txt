@@ -1,0 +1,6 @@
+========================================
+5/23/2016 4:43:43 PM;eError;IO.filereads;Cannot open file: d:\tmp\mytestdata. Make sure such a file exist and check read write permissions of the directory.;KGFDebugTutorial;Start at offset 45 in file:line:column F:\Unity\SpaceShoot\Assets\kolmich\KGFDebug\scripts\KGFDebugTutorial.cs:17:0
+
+5/23/2016 4:43:43 PM;eFatal;Module.Status;The referenced module is missing. Make sure to keep the module running if its in use.;;LogFatal at offset 0 in file:line:column F:\Unity\SpaceShoot\Assets\kolmich\KGFDebug\scripts\KGFDebug.cs:786:0
+Start at offset 61 in file:line:column F:\Unity\SpaceShoot\Assets\kolmich\KGFDebug\scripts\KGFDebugTutorial.cs:18:0
+
