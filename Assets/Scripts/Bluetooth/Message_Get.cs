@@ -11,43 +11,42 @@ public class Message_Get
         return instance;
     }
 
-    public void ProcessMessage(string message)
+    public void ProcessMessage(byte[] data)
     {
-        int messageId = int.Parse(message.Split('/')[0]);
+        MyData reader = new MyData(data, 0);
+        int messageId = reader.Read_Int();
         switch (messageId)
         { 
             case (int) MessageId.ConnectToServer:
-                ConnectCallBack(message);
+                ConnectCallBack(data);
                 break;
             case (int)MessageId.Chat:
-                ChatCallBack(message);
+                ChatCallBack(data);
                 break;
             default:
                 break;
         }
     }
 
-    void ConnectCallBack(string message)
+    void ConnectCallBack(byte[] data)
     {
-        //MyData reader = new MyData(data);
-        //ConnectToServer handler = new ConnectToServer();
-        //handler.result = reader.Read_Byte();
+        MyData reader = new MyData(data,4);
+        ConnectToServer handler = new ConnectToServer();
+        handler.result = reader.Read_Byte();
 
     }
 
-    void ChatCallBack(string message)
+    void ChatCallBack(byte[] data)
     {
-        //MyData reader = new MyData(data);
-        //Chat handler = new Chat();
-        //int id = reader.Read_Int();
-        //short playerLength = reader.Read_Short();
-        //handler.player = reader.Read_String(playerLength);
-        //short msgLength = reader.Read_Short();
-        //handler.msg = reader.Read_String(msgLength);
+        MyData reader = new MyData(data,4);
         Chat handler = new Chat();
-        handler.player = message.Split('/')[1];
-        handler.msg = message.Split('/')[2];
-        MyDebug.instance.Log("Player:" + handler.player + ";msg:" + handler.msg);
+        short playerLength = reader.Read_Short();
+        handler.player = reader.Read_String(playerLength);
+        short msgLength = reader.Read_Short();
+        handler.msg = reader.Read_String(msgLength);
+
+        MyDebug.instance.Log("MSG:" + handler.msg);
+        MainUIManager.instance.TestAsy();
     }
 
 }

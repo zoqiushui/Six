@@ -15,19 +15,19 @@ public class ActorRPC : MonoBehaviour {
         networkView = GetComponent<NetworkView>();
 	}
 
-    public void OnSendMessage(string message)
+    public void OnSendMessage(byte[] data)
     {
         if(networkView == null)
             networkView = GetComponent<NetworkView>();
         if (networkView.isMine)
         {
-            networkView.RPC("onGetMessage", RPCMode.Others, message);
+            networkView.RPC("onGetMessage", RPCMode.Others, data);
         }
     }
 
     [RPC]
-    void onGetMessage(string message)
+    void onGetMessage(byte[] data)
     {
-        Message_Get.Instance().ProcessMessage(message);
+        Message_Get.Instance().ProcessMessage(data);
     }
 }

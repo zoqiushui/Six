@@ -15,9 +15,18 @@ public class Message_Send
 
     public void Chat(string player,string message)
     {
-        string sender = ((int)MessageId.Chat).ToString() +"/"+ player + "/" + message;
+        short short1 = (short)Encoding.UTF8.GetByteCount(player);
+        short short2 = (short)Encoding.UTF8.GetByteCount(message);
+        int length = 8 + short1 + short2;
+        MyData sender = new MyData(length);
+        sender.Write_Int((int)MessageId.Chat);
+        sender.Write_Short(short1);
+        sender.Write_String(player);
+        sender.Write_Short(short2);
+        sender.Write_String(message);
+
         if (BluetoothManager.instance.myActor != null)
-            BluetoothManager.instance.myActor.OnSendMessage(sender);
+            BluetoothManager.instance.myActor.OnSendMessage(sender.dataForSend);
         else
         {
             MyDebug.instance.Log("Actor is null");

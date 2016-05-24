@@ -5,8 +5,14 @@ using System.Text;
 using HiData;
 
 public class MainUIManager : MonoBehaviour {
+    public static MainUIManager instance;
 
     public InputField my_Input;
+    public GameObject cube;
+    void Awake()
+    {
+        instance = this;
+    }
 
 	void Start () {
         MyDebug.instance.Log("main scene...");
@@ -45,5 +51,13 @@ public class MainUIManager : MonoBehaviour {
         {
             KGFDebugGUI.itsInstance.itsOpen = true;
         }
+    }
+
+    public void TestAsy()
+    {
+        Instantiate(cube, Vector3.zero, Quaternion.identity);
+
+        int leng = GameObject.FindGameObjectsWithTag("cube").Length;
+        MyDebug.instance.Log("cube:"+leng.ToString());
     }
 }
