@@ -402,7 +402,12 @@ public class KGFDebugGUI : KGFModule, KGFIDebug
                             //{
                             //    OpenHelpWindow(itsInstance);
                             //}
-							itsInstance.itsOpen = KGFGUIUtility.Toggle(itsInstance.itsOpen,"",KGFGUIUtility.eStyleToggl.eTogglSwitch,GUILayout.Width(KGFGUIUtility.GetSkinHeight()));
+                            if (itsInstance.itsOpen)
+                            {
+                                if (KGFGUIUtility.Button(itsInstance.itsDataModuleGUILogger.itsIconHelp, KGFGUIUtility.eStyleButton.eButton))
+                                    itsInstance.itsOpen = false;
+                            }
+							//itsInstance.itsOpen = KGFGUIUtility.Toggle(itsInstance.itsOpen,"",KGFGUIUtility.eStyleToggl.eTogglSwitch,GUILayout.Width(64));
 						}
 						KGFGUIUtility.EndWindowHeader(false);
 						
@@ -815,49 +820,54 @@ public class KGFDebugGUI : KGFModule, KGFIDebug
 	
 	private void DrawMinimizedWindow()
 	{
-		float aHeight = KGFGUIUtility.GetSkinHeight() + KGFGUIUtility.GetStyleButton(KGFGUIUtility.eStyleButton.eButton).margin.vertical + KGFGUIUtility.GetStyleBox(KGFGUIUtility.eStyleBox.eBoxDecorated).padding.vertical;
+        if (!itsOpen)
+        {
+            if (GUI.Button(new Rect(0, 0, 60, 20), "Log"))
+                itsOpen = true;
+        }
+        //float aHeight = KGFGUIUtility.GetSkinHeight() + KGFGUIUtility.GetStyleButton(KGFGUIUtility.eStyleButton.eButton).margin.vertical + KGFGUIUtility.GetStyleBox(KGFGUIUtility.eStyleBox.eBoxDecorated).padding.vertical;
 		
-		itsMinimizedWindow.x = 0;
-		itsMinimizedWindow.y = 0;
-		itsMinimizedWindow.width = Screen.width;
-		itsMinimizedWindow.height = aHeight;
+        //itsMinimizedWindow.x = 0;
+        //itsMinimizedWindow.y = 0;
+        //itsMinimizedWindow.width = Screen.width;
+        //itsMinimizedWindow.height = aHeight;
 		
-		GUILayout.BeginArea(itsMinimizedWindow);
-		{
-			GUILayout.BeginVertical();
-			{
-				GUILayout.BeginHorizontal();
-				{
-					KGFGUIUtility.BeginVerticalBox(KGFGUIUtility.eStyleBox.eBoxDecorated);
-					{
-                        Texture2D aIcon = null;
+        //GUILayout.BeginArea(itsMinimizedWindow);
+        //{
+        //    GUILayout.BeginVertical();
+        //    {
+        //        GUILayout.BeginHorizontal();
+        //        {
+        //            KGFGUIUtility.BeginVerticalBox(KGFGUIUtility.eStyleBox.eBoxDecorated);
+        //            {
+        //                Texture2D aIcon = null;
 
-                        if (KGFDebug.GetInstance() != null)
-                        {
-                            aIcon = KGFDebug.GetInstance().GetIcon();
-                        }
-						
-						KGFGUIUtility.BeginWindowHeader("KGFDebugger", aIcon);
-						{
-                            //DrawSummary();
-                            //GUILayout.FlexibleSpace();
-                            //if(KGFGUIUtility.Button(itsDataModuleGUILogger.itsIconHelp, KGFGUIUtility.eStyleButton.eButton))
-                            //{
-                            //    OpenHelpWindow(itsInstance);
-                            //}
-							itsOpen = KGFGUIUtility.Toggle(itsOpen,"",KGFGUIUtility.eStyleToggl.eTogglSwitch,GUILayout.Width(KGFGUIUtility.GetSkinHeight()));
-						}
-						KGFGUIUtility.EndWindowHeader(false);
-					}
-					KGFGUIUtility.EndVerticalBox();
-				}
-				GUILayout.EndHorizontal();
+        //                if (KGFDebug.GetInstance() != null)
+        //                {
+        //                    aIcon = KGFDebug.GetInstance().GetIcon();
+        //                }
+
+        //                KGFGUIUtility.BeginWindowHeader("KGFDebugger", aIcon);
+        //                {
+        //                    DrawSummary();
+        //                    GUILayout.FlexibleSpace();
+        //                    if (KGFGUIUtility.Button(itsDataModuleGUILogger.itsIconHelp, KGFGUIUtility.eStyleButton.eButton))
+        //                    {
+        //                        OpenHelpWindow(itsInstance);
+        //                    }
+        //                    itsOpen = KGFGUIUtility.Toggle(itsOpen, "", KGFGUIUtility.eStyleToggl.eTogglSwitch, GUILayout.Width(KGFGUIUtility.GetSkinHeight()));
+        //                }
+        //                KGFGUIUtility.EndWindowHeader(false);
+        //            }
+        //            KGFGUIUtility.EndVerticalBox();
+        //        }
+        //        GUILayout.EndHorizontal();
 				
-				GUILayout.FlexibleSpace();
-			}
-			GUILayout.EndVertical();
-		}
-		GUILayout.EndArea();
+        //        GUILayout.FlexibleSpace();
+        //    }
+        //    GUILayout.EndVertical();
+        //}
+        //GUILayout.EndArea();
 	}
 	
 	/// <summary>
